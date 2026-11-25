@@ -1,0 +1,38 @@
+[package]
+name = "ferrurl"
+version = "0.1.0"
+default-run = "ferrurl"
+description = "FerrURL - cliente HTTP de escritorio compatible con Postman"
+authors = ["FerrURL"]
+edition = "2021"
+rust-version = "1.80"
+
+[lib]
+name = "ferrurl_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+reqwest = { version = "0.12", default-features = false, features = ["native-tls", "gzip", "brotli", "deflate", "multipart", "stream", "http2", "charset"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time", "fs"] }
+base64 = "0.22"
+thiserror = "2"
+keyring = { version = "3", features = ["windows-native"] }
+url = "2"
+mime_guess = "2"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["full"] }
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true
